@@ -1,6 +1,6 @@
 :root {
     --primary: #59F;
-    --white: #DDD;
+    --white: #CCC;
     --black: #222;
 }
 
@@ -48,7 +48,7 @@ button {
     align-items: center;
     width: 100%;
     height: clamp(24px, 5vh, 36px);
-    padding: 10px 5%;
+    padding: 10px clamp(10px, 5%, 25px);
     transform: translateY(-50%);
     background-color: var(--primary);
     color: black;
@@ -56,7 +56,7 @@ button {
 
 .options > div {
     display: flex;
-    column-gap: 10px;
+    column-gap: clamp(15px, 100%, 25px);
 }
 
 .options button {
