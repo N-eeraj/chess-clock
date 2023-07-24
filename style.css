@@ -1,5 +1,7 @@
 :root {
-    --primary: #0AF;
+    --primary: #59F;
+    --white: #DDD;
+    --black: #222;
 }
 
 @font-face {
@@ -10,7 +12,11 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     border: none;
+}
+button {
+    cursor: pointer;
 }
 
 /* timer styles */
@@ -21,15 +27,16 @@
     place-items: center;
     font-size: 100pt;
     font-family: "DS-DIGI";
+    cursor: pointer;
 }
 .black {
-    background-color: black;
-    color: white;
+    background-color: var(--black);
+    color: var(--white);
     transform: rotate(180deg);
 }
 .white {
-    background-color: white;
-    color: black;
+    background-color: var(--white);
+    color: var(--black);
 }
 
 /* options container styles */
@@ -38,30 +45,21 @@
     top: 50%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    height: clamp(24px, 5vh, 36px);
+    padding: 10px 5%;
     transform: translateY(-50%);
-}
-
-.menu {
-    width: 7%;
-    aspect-ratio: 1;
     background-color: var(--primary);
-    font-weight: 700;
-    font-size: 20pt;
+    color: black;
 }
 
-.button-container {
+.options > div {
     display: flex;
-    justify-content: center;
     column-gap: 10px;
-    width: 80%;
 }
 
-/* actions buttons style */
-.button-container button {
-    width: 40%;
-    background-color: var(--primary);
-    color: white;
-    border-radius: 7px;
-    font-weight: 600;
+.options button {
+    background-color: transparent;
+    font-size: 18pt;
 }
