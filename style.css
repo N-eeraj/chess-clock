@@ -1,0 +1,67 @@
+:root {
+    --primary: #0AF;
+}
+
+@font-face {
+    font-family: "DS-DIGI";
+    src: url("./DS-DIGI.TTF");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+/* timer styles */
+.timer {
+    height: 50dvh;
+    width: 100vw;
+    display: grid;
+    place-items: center;
+    font-size: 100pt;
+    font-family: "DS-DIGI";
+}
+.black {
+    background-color: black;
+    color: white;
+    transform: rotate(180deg);
+}
+.white {
+    background-color: white;
+    color: black;
+}
+
+/* options container styles */
+.options {
+    position: fixed;
+    top: 50%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    transform: translateY(-50%);
+}
+
+.menu {
+    width: 7%;
+    aspect-ratio: 1;
+    background-color: var(--primary);
+    font-weight: 700;
+    font-size: 20pt;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+    width: 80%;
+}
+
+/* actions buttons style */
+.button-container button {
+    width: 40%;
+    background-color: var(--primary);
+    color: white;
+    border-radius: 7px;
+    font-weight: 600;
+}
