@@ -105,3 +105,5 @@ volumeButton.addEventListener('click', handleToggleVolume)
 
 // initializing
 init()
+if ('serviceWorker' in navigator)
+    navigator.serviceWorker.register('./serviceWorker.js')
