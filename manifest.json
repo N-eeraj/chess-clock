@@ -1,7 +1,7 @@
 {
     "name": "Chess Clock",
     "short_name": "Chess Clock",
-    "start_url": "/",
+    "start_url": "https://n-eeraj.github.io/chess-clock",
     "icons": [
         {
           "src": "icons/manifest-icon-192.maskable.png",
