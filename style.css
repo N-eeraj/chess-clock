@@ -6,7 +6,7 @@
 
 @font-face {
     font-family: "DS-DIGI";
-    src: url("./DS-DIGI.TTF");
+    src: url("./assets/DS-DIGI.TTF");
 }
 
 * {
@@ -60,6 +60,7 @@ button {
 }
 
 .options button {
+    width: 20px;
     background-color: transparent;
     font-size: 18pt;
 }

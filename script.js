@@ -1,8 +1,12 @@
+// load audio
+const audio = new Audio('./assets/tick.mp3')
+audio.loop = true
+
 // DOM buttons
-const playPause = document.getElementById('play_pause')
-const reset = document.getElementById('reset')
+const playPauseButton = document.getElementById('play_pause')
+const resetButton = document.getElementById('reset')
 const changeTime = document.getElementById('change_time')
-const volume = document.getElementById('volume')
+const volumeButton = document.getElementById('volume')
 
 // dom timer element
 const timer = {
@@ -20,9 +24,19 @@ const time = {
 let isOn
 let currentColor
 let timerInterval
+let volume
 
 // function to initialize
 const init = () => {
+    reset()
+    volume = true
+    volumeButton.classList.remove('fa-volume-up')
+    volumeButton.classList.remove('fa-volume-off')
+    volumeButton.classList.add(volume ? 'fa-volume-up' : 'fa-volume-off')
+}
+
+// function to reset
+const reset = () => {
     time.black = 600
     time.white = 600
     isOn = false
@@ -30,8 +44,8 @@ const init = () => {
     timerInterval = null
     setCurrentTimer('white')
     setCurrentTimer('black')
-    playPause.classList.remove('fa-pause')
-    playPause.classList.add('fa-play')
+    playPauseButton.classList.remove('fa-pause')
+    playPauseButton.classList.add('fa-play')
 }
 
 const setCurrentTimer = color => {
@@ -52,10 +66,14 @@ const startTimer = () => {
 const handlePlayPause = () => {
     isOn = !isOn
     clearInterval(timerInterval)
-    playPause.classList.remove(isOn ? 'fa-play' : 'fa-pause')
-    playPause.classList.add(isOn ? 'fa-pause' : 'fa-play')
+    playPauseButton.classList.remove(isOn ? 'fa-play' : 'fa-pause')
+    playPauseButton.classList.add(isOn ? 'fa-pause' : 'fa-play')
     if (isOn)
         startTimer()
+    if (volume && isOn)
+        audio.play()
+    else
+        audio.pause()
 }
 
 // function to switch timer
@@ -66,12 +84,24 @@ const handleSwitch = (color) => {
 
 // function to reset timer
 const handleReset = () => {
+    audio.pause()
     clearInterval(timerInterval)
-    init()
+    reset()
+}
+
+// function to toggle volume
+const handleToggleVolume = () => {
+    volume = !volume
+    volumeButton.classList.remove(volume ? 'fa-volume-off' : 'fa-volume-up')
+    volumeButton.classList.add(volume ? 'fa-volume-up' : 'fa-volume-off')
+    if (isOn)
+        volume ? audio.play() : audio.pause()
 }
 
 // assigning event listeners
-playPause.addEventListener('click', handlePlayPause)
-reset.addEventListener('click', handleReset)
+playPauseButton.addEventListener('click', handlePlayPause)
+resetButton.addEventListener('click', handleReset)
+volumeButton.addEventListener('click', handleToggleVolume)
 
+// initializing
 init()
