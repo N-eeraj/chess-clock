@@ -1,7 +1,7 @@
 :root {
-    --primary: #59F;
-    --white: #CCC;
-    --black: #222;
+    --dark: #111;
+    --player-one: #7A5;
+    --player-two: #222;
 }
 
 @font-face {
@@ -30,13 +30,13 @@ button {
     cursor: pointer;
 }
 .black {
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--player-two);
+    color: var(--player-one);
     transform: rotate(180deg);
 }
 .white {
-    background-color: var(--white);
-    color: var(--black);
+    background-color: var(--player-one);
+    color: var(--player-two);
 }
 
 /* options container styles */
@@ -50,7 +50,7 @@ button {
     height: clamp(24px, 5vh, 36px);
     padding: 10px clamp(10px, 5%, 25px);
     transform: translateY(-50%);
-    background-color: var(--primary);
+    background-color: var(--dark);
     color: black;
 }
 
@@ -62,5 +62,6 @@ button {
 .options button {
     width: 20px;
     background-color: transparent;
+    color: #CCC;
     font-size: 18pt;
 }

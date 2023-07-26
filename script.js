@@ -14,6 +14,9 @@ const timer = {
     white: document.getElementById('timer_white')
 }
 
+// constants
+const DEFAULT_TIME = 5 // default time in minutes
+
 // timer left
 const time = {
     black: null,
@@ -21,13 +24,22 @@ const time = {
 }
 
 // variables
+let currentSetTime
 let isOn
 let currentColor
 let timerInterval
 let volume
 
+
+// function to convert minutes to seconds
+const convertToSeconds = minutes => minutes * 60
+
+// function to return the 'other' color
+const getInvertColor = () => currentColor === 'white' ? 'black' : 'white'
+
 // function to initialize
 const init = () => {
+    currentSetTime = DEFAULT_TIME
     reset()
     volume = true
     volumeButton.classList.remove('fa-volume-up')
@@ -37,8 +49,8 @@ const init = () => {
 
 // function to reset
 const reset = () => {
-    time.black = 600
-    time.white = 600
+    time.black = convertToSeconds(currentSetTime)
+    time.white = convertToSeconds(currentSetTime)
     isOn = false
     currentColor = 'white'
     timerInterval = null
@@ -48,10 +60,17 @@ const reset = () => {
     playPauseButton.classList.add('fa-play')
 }
 
+// function to set timer value of given color
 const setCurrentTimer = color => {
     const min = Math.floor(time[color] / 60)
     const sec = String(time[color] % 60).padStart(2, 0)
     timer[color].innerText = `${min}:${sec}`
+}
+
+// function to handle time up
+const handleTimeUp = () => {
+    alert(`${getInvertColor()} win`)
+    reset()
 }
 
 // function to start timer
@@ -59,6 +78,10 @@ const startTimer = () => {
     timerInterval = setInterval(() => {
         --time[currentColor]
         setCurrentTimer(currentColor)
+        if (!time[currentColor]) {
+            clearInterval(timerInterval)
+            handleTimeUp()
+        }
     }, 1000)
 }
 
@@ -79,7 +102,7 @@ const handlePlayPause = () => {
 // function to switch timer
 const handleSwitch = (color) => {
     if (!isOn || currentColor !== color) return
-    currentColor = currentColor === 'white' ? 'black' : 'white'
+    currentColor = getInvertColor()
 }
 
 // function to reset timer
