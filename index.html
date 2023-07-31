@@ -16,12 +16,8 @@
 <body>
 
     <!-- timer template -->
-    <div id="timer_black" class="timer black" onclick="handleSwitch('black')">
-        10:00
-    </div>
-    <div id="timer_white" class="timer white" onclick="handleSwitch('white')">
-        10:00
-    </div>
+    <div id="timer_black" class="timer black" onclick="handleSwitch('black')"></div>
+    <div id="timer_white" class="timer white" onclick="handleSwitch('white')"></div>
 
     <!-- options container template -->
     <div class="options">
@@ -48,13 +44,11 @@
                 Set Time Limit
             </strong>
             <div class="time-setter">
-                <button id="decrement_set_time_value">
+                <button id="decrement_set_time_value" onclick="changeCurrentSetTime(-1)">
                     &minus;
                 </button>
-                <strong id="current_set_time_value">
-                    0
-                </strong>
-                <button id="increment_set_time_value">
+                <strong id="current_set_time_value"></strong>
+                <button id="increment_set_time_value" onclick="changeCurrentSetTime(1)">
                     &plus;
                 </button>
             </div>

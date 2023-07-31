@@ -10,6 +10,11 @@ const volumeButton = document.getElementById('volume')
 const setCurrentTimeLimit = {
     modal: document.getElementById('current_set_time_modal'),
     value: document.getElementById('current_set_time_value'),
+    actions: {
+        update: document.getElementById('update_current_set_time'),
+        decrement: document.getElementById('decrement_set_time_value'),
+        increment: document.getElementById('increment_set_time_value'),
+    },
 }
 
 // dom timer element
@@ -20,6 +25,8 @@ const timer = {
 
 // constants
 const DEFAULT_TIME = 5 // default time in minutes
+const MIN_TIME = 1 // minimum time in minutes
+const MAX_TIME = 15 // maximum time in minutes
 
 // timer left
 const time = {
@@ -62,7 +69,7 @@ const reset = () => {
     setCurrentTimer('black')
     playPauseButton.classList.remove('fa-pause')
     playPauseButton.classList.add('fa-play')
-    setCurrentTimeLimit.value.innerText = currentSetTime
+    checkSetTime()
 }
 
 // function to set timer value of given color
@@ -90,12 +97,16 @@ const startTimer = () => {
     }, 1000)
 }
 
+// function to handle toggling of set time button
+const checkSetTime = () => changeTime.style.visibility = isOn ? 'hidden' : 'visible'
+
 // function to toggle play & pause
 const handlePlayPause = () => {
     isOn = !isOn
     clearInterval(timerInterval)
     playPauseButton.classList.remove(isOn ? 'fa-play' : 'fa-pause')
     playPauseButton.classList.add(isOn ? 'fa-pause' : 'fa-play')
+    checkSetTime()
     if (isOn)
         startTimer()
     if (volume && isOn)
@@ -126,16 +137,41 @@ const handleToggleVolume = () => {
         volume ? audio.play() : audio.pause()
 }
 
-// function to show time input modal
-const hideTimeSelect = () => setCurrentTimeLimit.modal.classList.add('hidden')
-const showTimeSelect = () => setCurrentTimeLimit.modal.classList.remove('hidden')
+// function to show & hide time input modal
+const openTimeSelect = () => {
+    setCurrentTimeLimit.value.innerText = currentSetTime
+    setCurrentTimeLimit.modal.classList.remove('hidden')
+}
+const closeTimeSelect = () => setCurrentTimeLimit.modal.classList.add('hidden')
+
+// function to change limit time in UI only
+const changeCurrentSetTime = value => {
+    const updatedValue = Number(setCurrentTimeLimit.value.innerText) + value
+    setCurrentTimeLimit.value.innerText = updatedValue
+    if (updatedValue === MIN_TIME) {
+        setCurrentTimeLimit.actions.decrement.style.visibility = 'hidden'
+        setCurrentTimeLimit.actions.increment.style.visibility = 'visible'
+    }
+    else if (updatedValue === MAX_TIME) {
+        setCurrentTimeLimit.actions.decrement.style.visibility = 'visible'
+        setCurrentTimeLimit.actions.increment.style.visibility = 'hidden'
+    }
+}
+
+// function to update current set time
+const updateCurrentSetTime = () => {
+    currentSetTime = Number(setCurrentTimeLimit.value.innerText)
+    closeTimeSelect()
+    reset()
+}
 
 // assigning event listeners
 playPauseButton.addEventListener('click', handlePlayPause)
 resetButton.addEventListener('click', handleReset)
 volumeButton.addEventListener('click', handleToggleVolume)
-changeTime.addEventListener('click', showTimeSelect)
-setCurrentTimeLimit.modal.addEventListener('click', hideTimeSelect)
+changeTime.addEventListener('click', openTimeSelect)
+setCurrentTimeLimit.modal.addEventListener('click', closeTimeSelect)
+setCurrentTimeLimit.actions.update.addEventListener('click', updateCurrentSetTime)
 
 // initializing
 init()
