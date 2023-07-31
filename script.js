@@ -7,6 +7,10 @@ const playPauseButton = document.getElementById('play_pause')
 const resetButton = document.getElementById('reset')
 const changeTime = document.getElementById('change_time')
 const volumeButton = document.getElementById('volume')
+const setCurrentTimeLimit = {
+    modal: document.getElementById('current_set_time_modal'),
+    value: document.getElementById('current_set_time_value'),
+}
 
 // dom timer element
 const timer = {
@@ -58,6 +62,7 @@ const reset = () => {
     setCurrentTimer('black')
     playPauseButton.classList.remove('fa-pause')
     playPauseButton.classList.add('fa-play')
+    setCurrentTimeLimit.value.innerText = currentSetTime
 }
 
 // function to set timer value of given color
@@ -121,10 +126,16 @@ const handleToggleVolume = () => {
         volume ? audio.play() : audio.pause()
 }
 
+// function to show time input modal
+const hideTimeSelect = () => setCurrentTimeLimit.modal.classList.add('hidden')
+const showTimeSelect = () => setCurrentTimeLimit.modal.classList.remove('hidden')
+
 // assigning event listeners
 playPauseButton.addEventListener('click', handlePlayPause)
 resetButton.addEventListener('click', handleReset)
 volumeButton.addEventListener('click', handleToggleVolume)
+changeTime.addEventListener('click', showTimeSelect)
+setCurrentTimeLimit.modal.addEventListener('click', hideTimeSelect)
 
 // initializing
 init()
